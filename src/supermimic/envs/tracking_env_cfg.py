@@ -248,4 +248,4 @@ def make_env(a: SuperMimicEnvCfgArgs, device: str = "cuda:0") -> ManagerBasedRlE
     configure_torch_backends()
     return ManagerBasedRlEnv(make_env_cfg(a), device=device)
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

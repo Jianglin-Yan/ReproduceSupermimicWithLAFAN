@@ -35,4 +35,4 @@ def test_compact_matches_full():
     np.testing.assert_allclose(g_32.cpu().numpy(), g_full.cpu().numpy(), atol=1e-5)
     assert comp16.summary().startswith("MotionLibrary(compact)")
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

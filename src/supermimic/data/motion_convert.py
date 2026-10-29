@@ -340,4 +340,4 @@ def convert_csv_to_npz(
         "duration_s": (motion.num_frames - 1) / output_fps,
     }
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

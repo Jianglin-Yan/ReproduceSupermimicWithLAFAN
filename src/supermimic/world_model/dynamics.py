@@ -38,4 +38,4 @@ class DynamicsMLP(nn.Module):
     def forward(self, feat: torch.Tensor, action: torch.Tensor, xi_norm: torch.Tensor) -> torch.Tensor:
         return self.mlp(torch.cat([feat, action, xi_norm], dim=-1))
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

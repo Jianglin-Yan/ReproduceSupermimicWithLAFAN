@@ -125,4 +125,4 @@ def test_episode_never_crosses_clip_boundary(env):
         fired = fired or bool(tout[0]) or bool(term[0])
     assert fired
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

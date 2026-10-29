@@ -1,35 +1,38 @@
-# Reproduce SuperMimic with LAFAN
+# SuperMimic reproduction with LAFAN1
 
-**维护者：Jianglin Yan**
-**本地整理日期：2026-10-28**
+**Maintainer: Jianglin Yan · 2026-10-28**
 
-这是 SuperMimic 论文的本地复现项目，包含训练实现、LAFAN1/BONES-SEED 数据处理代码、实验评测脚本和复现笔记。当前算法实现基于第三方独立复现项目 `CuboiLeo/SuperMimic-Reproduced` 的固定版本整理；本项目不是论文作者发布的官方代码。来源、版本和许可说明见 [ATTRIBUTION.md](ATTRIBUTION.md) 与 [LICENSE](LICENSE)。
+This workspace contains a runnable SuperMimic reproduction pipeline for G1 motion tracking: data conversion, a differentiable dynamics model, policy training through imagined rollouts, evaluation, and visualization. It is intended for internal research and learning.
 
-> 仓库只收录核心代码和文档。动作数据、模型权重、训练日志、缓存、论文 PDF 和生成的视频/图像不包含在 Git 上传内容中。数据集需按其原始许可单独获取。
+The repository contains source and selected notes only. Datasets, converted motion files, checkpoints, training logs, caches, PDFs, and generated videos are excluded. Dataset terms apply to any data obtained separately. Consolidated source and license notices are in [ATTRIBUTION.md](ATTRIBUTION.md).
 
-## 当前内容
+## Current 4090 run
 
-- 基于 mjlab / MuJoCo Warp 的 G1 运动模仿环境与训练循环。
-- 可微分 G1 正向运动学、动力学世界模型和 imagination/BPTT 策略训练。
-- LAFAN1 与 BONES-SEED 数据转换、筛选、紧凑库构建脚本。
-- 评测、回放、漂移诊断及仿真速度脚本。
-- 上游实现的实验记录，以及本地复现规格、4090 环境准备和数据来源笔记。
+The first full-scale LAFAN1 run on the remote RTX 4090 completed its three-hour budget. It is a working end-to-end run, but not a full reproduction of the paper's reported score.
 
-该仓库不包含本地训练输出，因此不在此报告本地 4090 的最终成功率或论文复现结论。`docs/EXPERIMENTS.md` 中保留的历史实验记录来自上游候选项目；请勿将其误认为 Jianglin Yan 在本机上的实验结果。
+| Item | Result |
+|---|---|
+| Data | 40 G1-retargeted LAFAN1 clips, 2.45 hours, converted from 30 to 50 fps |
+| Training | 4096 environments; 17,650 iterations; 3.01 hours; about 1.7 iterations/s |
+| Final training return | about 0.670 |
+| Full-clip evaluation | mean normalized return 0.5669; step-weighted 0.5709; 6 failed clips |
+| Paper LAFAN1 reference | 0.82 on one H100 after 1.2 hours |
 
-## 环境
+The exact launch line was not preserved in shell history. The run configuration and logs were inspected, and an equivalent command plus metric details are recorded in [the run report](docs/local/RUN_LAFAN1_20261027.md). Treat the score gap as an open reproduction issue.
 
-依赖锁定在 Python 3.12 与 `uv.lock`。项目配置固定了 PyTorch CUDA、MuJoCo、Warp 和 mjlab 版本。Ubuntu + RTX 4090 环境建议使用项目独立 Python 环境，不需要修改系统 Python 或 CUDA 驱动。
+## Environment
+
+The project is locked to Python 3.12 and uses `uv.lock` for pinned dependencies. On the Ubuntu 22.04 RTX 4090 host, the project environment is isolated from system Python and CUDA packages.
 
 ```bash
-uv sync --group dev
+uv sync --locked --no-dev
 ```
 
-如果环境中 `PYTHONPATH` 指向其它项目，可在命令前使用 `env -u PYTHONPATH`。
+If `PYTHONPATH` points at another Python installation, prefix project commands with `env -u PYTHONPATH`.
 
-## 数据准备
+## Prepare data
 
-数据不随仓库分发。下载和处理前，请分别核对数据源当前许可及访问条款；特别是 BONES-SEED 需要接受数据集条款，LAFAN1 数据及其重定向数据也不能默认再分发。
+LAFAN1 and BONES-SEED data are not included. Check the source terms before downloading or redistributing either dataset. The data preparation commands are:
 
 ```bash
 uv run python scripts/data/csv_to_npz_batch.py --help
@@ -37,15 +40,11 @@ uv run python scripts/data/filter_bones_seed.py --help
 uv run python scripts/data/build_library.py --help
 ```
 
-本地准备记录及数据来源见 [`docs/local/SOURCES_AND_DATA.md`](docs/local/SOURCES_AND_DATA.md)。
+See [data sources and preparation notes](docs/local/SOURCES_AND_DATA.md).
 
-## 训练与评测入口
-
-以下示例展示入口形式；先准备对应数据，再根据显存和数据量调整环境数、批大小及运行时长。
+## Train and evaluate
 
 ```bash
-# 单卡 LAFAN1 示例
-# 将 data/npz/lafan1 替换为已处理数据所在目录
 env -u PYTHONPATH uv run sm-train \
   --run-name lafan1 \
   --data.npz-dir data/npz/lafan1 \
@@ -53,33 +52,62 @@ env -u PYTHONPATH uv run sm-train \
   --policy-trainer.batch-size 4096 \
   --schedule.max-hours 3
 
-# 查看实际参数
-uv run sm-train --help
 uv run python scripts/eval_benchmark.py --help
 uv run python scripts/play.py --help
 ```
 
-训练日志、权重与转换后的数据应保存在本地运行目录，并由 `.gitignore` 排除。不要将数据集、检查点或生成媒体文件提交到本仓库。
+Training data and outputs go under ignored runtime directories. Do not add them to Git.
 
-## 项目结构
+## View 36 environments
 
-```text
-src/supermimic/       环境、数据管线、FK、世界模型、策略与训练实现
-scripts/              数据准备、训练辅助、评估、回放和诊断脚本
-tests/                数值一致性与环境冒烟测试
+After training, the helper can open 36 vectorized environments in one Viser viewer. Select motion names with `--clips` or let the motion library sample from the supplied NPZ directory.
 
-docs/                 上游实现文档与实验记录
-docs/local/           本地论文规格、数据来源、路线和 4090 环境笔记
+```bash
+env -u PYTHONPATH uv run python scripts/media/play_grid36.py \
+  --ckpt logs/lafan1/ckpt_latest.pt \
+  --npz-dir data/npz/lafan1 \
+  --num-envs 36 \
+  --port 8081
 ```
 
-## 复现笔记
+The viewer is a post-training policy replay, not a 36-environment training visualization. To create a montage from captured per-clip MP4 tiles, use `scripts/media/make_montage.py --help`.
 
-- [论文规格](docs/local/PAPER_SPEC.md)
-- [复现路线](docs/local/REPRODUCTION_ROADMAP.md)
-- [代码与数据来源](docs/local/SOURCES_AND_DATA.md)
-- [4090 环境快照（2026-10-27）](docs/local/REMOTE_4090_BASELINE_2026-10-27.md)：历史检查记录，不代表当前机器实时状态
-- [上游实验日志](docs/EXPERIMENTS.md)：其中结果属于来源项目，不是本地运行结果
+For an offline MP4 montage from a chosen set of clips, first record rollouts, render one MP4 per clip, then tile the results. Replace the example clip names with the clips you want to show:
 
-## 许可与署名
+```bash
+env -u PYTHONPATH uv run python scripts/media/record_rollout.py \
+  --ckpt logs/lafan1/ckpt_latest.pt \
+  --npz-dir data/npz/lafan1 \
+  --clips walk1_subject1 dance1_subject1 \
+  --out media/rollouts.npz
 
-本地维护者和整理日期见 [AUTHORS.md](AUTHORS.md)。保留来源代码的 MIT 许可及原始版权声明；具体实现、方法论文和数据集各自的署名与许可不同，详见 [ATTRIBUTION.md](ATTRIBUTION.md)。
+MUJOCO_GL=egl env -u PYTHONPATH uv run python scripts/media/render_rollout.py \
+  media/rollouts.npz media/tiles --fps 10 --seconds 12
+
+uv run python scripts/media/make_montage.py \
+  media/tiles media/supermimic_montage.mp4 --cols 6 --duration 12 --fps 10
+```
+
+This creates a grid MP4 from separately rendered deterministic policy rollouts. These media and trajectory files are ignored by Git.
+
+## Project map
+
+```text
+src/supermimic/       environment, data pipeline, FK, world model, policy, training
+scripts/              data preparation, training helpers, evaluation, replay, rendering
+scripts/media/        rollout rendering and multi-environment viewer utilities
+tests/                focused numerical and environment checks
+docs/                 method notes and experiment records
+docs/local/           local hardware, data, run, and reproduction notes
+```
+
+## Reproduction notes
+
+- [Paper settings and open gaps](docs/local/PAPER_SPEC.md)
+- [Run record from the RTX 4090](docs/local/RUN_LAFAN1_20261027.md)
+- [Reproduction roadmap](docs/local/REPRODUCTION_ROADMAP.md)
+- [Data sources and preparation](docs/local/SOURCES_AND_DATA.md)
+- [Initial RTX 4090 environment snapshot](docs/local/REMOTE_4090_BASELINE_2026-10-27.md)
+- [Historical experiment log](docs/EXPERIMENTS.md)
+
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->

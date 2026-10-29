@@ -112,4 +112,4 @@ def test_rotvec_round_trip():
     quat_from_rotvec(v0).sum().backward()
     assert torch.isfinite(v0.grad).all()
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

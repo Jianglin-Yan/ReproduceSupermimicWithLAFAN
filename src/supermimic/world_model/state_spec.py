@@ -128,4 +128,4 @@ def quat_apply_inverse_quat(q: torch.Tensor) -> torch.Tensor:
     """Conjugate of a unit quaternion (inverse)."""
     return q * torch.tensor([1.0, -1.0, -1.0, -1.0], dtype=q.dtype, device=q.device)
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

@@ -167,4 +167,4 @@ def main(npz_dir: Path, workers: int = 24, out: Path | None = None) -> None:
 if __name__ == "__main__":
     tyro.cli(main)
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

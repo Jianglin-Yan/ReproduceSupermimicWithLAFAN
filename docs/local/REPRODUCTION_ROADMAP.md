@@ -1,15 +1,15 @@
 # SuperMimic reproduction roadmap
 
-> Planning snapshot assembled on 2026-10-27. It records the initial preparation plan and may not reflect the current 4090 environment or experiment status. Use the current README and merged experiment records for live status.
+> Planning snapshot assembled on 2026-10-27. The isolated environment and a three-hour LAFAN1 run have since been completed; see [the run report](RUN_LAFAN1_20261027.md). The checklist below remains useful for diagnosing that run and planning the full BONES-SEED benchmark.
 
-Goal: prepare this workspace locally, then perform training only on the separate Ubuntu machine with one 24 GB RTX 4090. This roadmap deliberately separates a functioning pipeline from a paper-faithful result.
+Goal: continue training only on the separate Ubuntu machine with one 24 GB RTX 4090, extending from the working LAFAN1 pipeline toward the full benchmark. This roadmap deliberately separates a functioning pipeline from a paper-faithful result.
 
 ## Stage 0 — freeze the target and the code
 
 1. Use the local `2610.28480v1.pdf` as the target paper version; record its SHA-256 and keep the PDF unchanged.
 2. Review `PAPER_SPEC.md` against Appendix A, D, E, and F in the PDF: observations, reward, termination, domain randomization, policy/world-model/critic, dataset filtering, and evaluator.
-3. Inspect `code/SuperMimic-Reproduced/README.md`, `pyproject.toml`, scripts, and data pipeline. Pin a git commit (do not train from a moving `main`).
-4. Record every discrepancy between the code and paper before running it. The most visible current gap is LAFAN1 paper-observation return, which the candidate reports below 0.82.
+3. Inspect the selected implementation's README, `pyproject.toml`, scripts, and data pipeline. Pin a git commit (do not train from a moving `main`).
+4. Record every discrepancy between the implementation and paper before running it. A historical LAFAN1 paper-observation result below 0.82 is recorded in `docs/EXPERIMENTS.md`.
 5. Keep a separate branch/config for any changes. Report them as modified reproduction, not paper-faithful reproduction.
 
 **Exit condition:** an experiment sheet defines exact source commit, data revision, paper target, changed assumptions, metrics, and output paths.
@@ -55,11 +55,11 @@ Also record GPU model/VRAM, driver and CUDA compatibility, Ubuntu release, free 
 ## Stage 4 — BONES-SEED data and full-scale pilot
 
 1. Review and accept the dataset license; verify remote free disk before download. Hugging Face currently lists the G1 archive as 23.5 GB; estimated converted uncompressed NPZ data is about 85 GB and the compact library about 6.7 GB. With only 160 GB free, do not extract the complete archive while also retaining all converted outputs without a storage plan.
-2. Download the G1 archive and checksum it. Before extracting all files, choose either enough free disk to hold archive + extracted CSVs + converted outputs, or stage extraction/conversion and delete each raw batch after its converted outputs are verified. The candidate conversion script currently expects directory inputs, so staged processing may require a small wrapper or controlled batches.
+2. Download the G1 archive and checksum it. Before extracting all files, choose either enough free disk to hold archive + extracted CSVs + converted outputs, or stage extraction/conversion and delete each raw batch after its converted outputs are verified. The included converter expects directory inputs, so staged processing may require a small wrapper or controlled batches.
 3. Apply the paper's two-pass filtering (name filter and feasibility filter) as implemented/audited; save the exact manifest and rejection reasons.
 4. Convert to the expected 50 Hz data format and verify final clip count, total duration, joint ranges, missing/NaN frames, and representative rollouts.
-5. Build the compact motion library and measure peak RAM/VRAM. A candidate README reports a roughly 6.7 GB compact library on GPU; the 24 GB card has to fit this plus simulation, replay, and differentiable rollout activations. Treat full-data fit as plausible but unproven until measured.
-6. Start a small full-data pilot, check GPU memory over several update cycles and checkpoint recovery, then scale. If it OOMs, reduce library residency/batch/environment sizes using the candidate's supported settings and document each change.
+5. Build the compact motion library and measure peak RAM/VRAM. The expected compact library is roughly 6.7 GB; the 24 GB card has to fit this plus simulation, replay, and differentiable rollout activations. Treat full-data fit as plausible but unproven until measured.
+6. Start a small full-data pilot, check GPU memory over several update cycles and checkpoint recovery, then scale. If it OOMs, reduce library residency/batch/environment sizes using the included configuration and document each change.
 
 **Exit condition:** full filtered dataset is reproducibly built and a sustained training pilot fits memory without dropping clips silently.
 
@@ -73,10 +73,9 @@ Also record GPU model/VRAM, driver and CUDA compatibility, Ubuntu release, free 
 
 ## Practical schedule and current priority
 
-1. **Now, local preparation:** validate documents, audit/freeze code, write remote setup and data manifests. No system changes on the development machine.
-2. **First 4090 session:** read-only hardware/storage inspection; then isolated environment and one-environment simulation check.
-3. **First experiment:** LAFAN1 reduced-scale pilot, then full LAFAN1 paper-observation run.
-4. **Only after that:** full BONES-SEED processing, VRAM pilot, and full benchmark run.
+1. **Current:** inspect the six failed LAFAN1 clips and confirm the Appendix-F evaluation details.
+2. **Next:** decide whether to extend LAFAN1 training and measure the effect of schedule/learning-rate decay.
+3. **After disk and dataset terms are confirmed:** stage BONES-SEED processing, verify the filtered manifest, and run a memory pilot before full training.
 
 One RTX 4090 24 GB is a reasonable target for the pilot and may be sufficient for a tuned single-GPU full-data run. The paper's H100 timings and other implementations' multi-GPU results do not establish that the paper defaults will fit or match their speed on this card.
 
@@ -84,4 +83,4 @@ One RTX 4090 24 GB is a reasonable target for the pilot and may be sufficient fo
 
 For every run record: run ID; date/time; repository URL and commit; paper version; config diff; dataset revision/license and manifest hash; Ubuntu/driver/CUDA/Python/torch/mjlab versions; GPU and peak VRAM; random seed; wall time; throughput; training/evaluation metrics; checkpoint path; and deviations or failures.
 
-<!-- Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license. -->
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->

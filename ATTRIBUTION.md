@@ -1,17 +1,43 @@
-# Attribution and provenance
+# Attribution and licensing
 
-Prepared by **Jianglin Yan**, 2026-10-28.
+This file consolidates the source and license notices for this internal reproduction workspace. Prepared by **Jianglin Yan** on **2026-10-28**.
 
-## Implementation source
+## Code provenance
 
-The core implementation was copied from the independent reproduction project [`CuboiLeo/SuperMimic-Reproduced`](https://github.com/CuboiLeo/SuperMimic-Reproduced), pinned locally at commit `ba6105349069bf040f1fdad60873d13138d505a2` (2026-10-26). It is not official code from the SuperMimic paper authors. The source repository identifies **Yuxi Liu** as the copyright holder and licenses its code under MIT; the original `LICENSE` is retained unmodified.
+The core implementation in `src/`, `scripts/`, and `tests/` was copied from the independent reproduction project [CuboiLeo/SuperMimic-Reproduced](https://github.com/CuboiLeo/SuperMimic-Reproduced), commit `ba6105349069bf040f1fdad60873d13138d505a2` (2026-10-26). It is not the official implementation from the paper authors. The upstream project identifies **Yuxi Liu** as copyright holder. `docs/EXPERIMENTS.md` is the historical experiment log from that same project; its runs and metrics are not Jianglin Yan's. The local LAFAN1 run report and small viewer utilities were added for this workspace.
 
-This repository adds a local project wrapper and reproduction documentation. Its `docs/EXPERIMENTS.md` is inherited from the source project and records that project's reported experiments. Those records are not results produced by Jianglin Yan.
+The paper being reproduced is Q. Liao, Y. Shao, J. Long, K. Zakka, R. Horowitz, P. Abbeel, and K. Sreenath, “SuperMimic: Scaling Humanoid Whole-Body Control with One Differentiable World Model,” CoRL 2026, [arXiv:2610.28480](https://arxiv.org/abs/2610.28480). This workspace is an independent reproduction and is not affiliated with the paper authors.
 
-## Paper
+## Consolidated MIT License
 
-Q. Liao, Y. Shao, J. Long, K. Zakka, R. Horowitz, P. Abbeel, and K. Sreenath, “SuperMimic: Scaling Humanoid Whole-Body Control with One Differentiable World Model,” CoRL 2026, [arXiv:2610.28480](https://arxiv.org/abs/2610.28480). This repository is an independent reproduction effort and is not affiliated with the paper authors.
+The upstream MIT notice is reproduced in full here; it was consolidated from the standalone `LICENSE` file so the repository has one place for code provenance and license notices.
 
-## Third-party dependencies and datasets
+```text
+MIT License
 
-mjlab, MuJoCo, MuJoCo Warp, PyTorch, Warp, and other dependencies retain their own licenses; see `pyproject.toml` and upstream project notices. LAFAN1 and BONES-SEED data, processed motion files, model checkpoints, and generated demos are not bundled here. Their separate licenses and terms apply. See [`docs/local/SOURCES_AND_DATA.md`](docs/local/SOURCES_AND_DATA.md).
+Copyright (c) 2026 Yuxi Liu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## Other components
+
+Third-party libraries listed in `pyproject.toml`, including mjlab, MuJoCo, MuJoCo Warp, PyTorch, and Warp, retain their own terms. LAFAN1 and BONES-SEED data are not included; their dataset terms apply separately. No datasets, checkpoints, logs, paper PDFs, or generated media are included in this repository.
+
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->

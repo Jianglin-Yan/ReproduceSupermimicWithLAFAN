@@ -109,4 +109,4 @@ def test_fk_matches_mj_forward_and_finite_difference():
 def test_joint_names_order():
     assert len(G1_JOINT_NAMES) == 29 and G1_JOINT_NAMES[0] == "left_hip_pitch_joint"
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

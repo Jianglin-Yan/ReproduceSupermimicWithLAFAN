@@ -34,4 +34,4 @@ def gae_targets(rewards: torch.Tensor, dhat_next: torch.Tensor, values: torch.Te
         out[t] = R
     return out
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

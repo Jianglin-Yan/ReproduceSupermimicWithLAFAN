@@ -1,6 +1,6 @@
 # 实验日志（EXPERIMENTS）
 
-> Provenance: this log is inherited from the upstream `CuboiLeo/SuperMimic-Reproduced` project at commit `ba6105349069bf040f1fdad60873d13138d505a2`. Its machine names, runs, metrics, and conclusions describe that project's experiments; they are not local RTX 4090 results from Jianglin Yan. See `../ATTRIBUTION.md`.
+> Historical reference log. Machine names, runs, metrics, and conclusions below describe earlier experiments and are not the local RTX 4090 run. The local run is recorded in `local/RUN_LAFAN1_20261027.md`.
 
 按时间顺序记录实测数据、偏离计划的决定和每个实验的结论。配置以 `logs/<run>/config.json` 为准。
 
@@ -218,4 +218,4 @@
 
 **e8 小结**：论文观测口径、四卡 5090、7.1 h（≈28 GPU·h）：全量回报 0.93（论文 >0.90），失败率 0.11%（论文 0.02%，约 6×）。差距集中在翻转类动作；训练回报 0.81 平台、学习率未衰减，后续若要追失败数应延长训练并让 lr 衰减。
 
-<!-- Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license. -->
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->

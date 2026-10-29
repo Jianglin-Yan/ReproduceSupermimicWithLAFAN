@@ -12,4 +12,4 @@ def cosine_lr(step: int, total_steps: int, base_lr: float, final_ratio: float = 
     cos = 0.5 * (1.0 + math.cos(math.pi * step / decay_steps))
     return base_lr * (final_ratio + (1.0 - final_ratio) * cos)
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

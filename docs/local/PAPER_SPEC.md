@@ -1,6 +1,6 @@
 # Paper specification notes
 
-Source: Liao et al., *SuperMimic: Scaling Humanoid Whole-Body Control with One Differentiable World Model*, arXiv:2610.28480v1 (2026-10-20). The local PDF is `../2610.28480v1.pdf`.
+Target method: *SuperMimic: Scaling Humanoid Whole-Body Control with One Differentiable World Model*, arXiv:2610.28480v1 (2026-10-20).
 
 ## Method in one loop
 
@@ -34,12 +34,6 @@ These are target-paper settings, not guaranteed safe defaults for a 24 GB RTX 40
 
 ## Reproduction gaps to track
 
-The current third-party candidate reports paper-observation LAFAN1 scores around `0.56–0.59` on one RTX 5090 (paper: `0.82`), and full BONES-SEED results on 4× RTX 5090 of `0.930` with `145 / 129,491` failures (paper: `>0.90`, `25 / 129,514` on one H100). These are not equivalent results. First identify implementation, dataset filtering, environment, evaluator, and checkpoint differences; do not hide these gaps by changing observations/rewards and labeling the run paper-faithful.
+Historical comparison runs in `docs/EXPERIMENTS.md` report LAFAN1 paper-observation scores around `0.56–0.59` on one RTX 5090 and full BONES-SEED return `0.930` with `145 / 129,491` failures on four RTX 5090s. The paper reports `0.82` on LAFAN1 and `>0.90` with `25 / 129,514` failures on one H100 for BONES-SEED. These are not equivalent results. Check implementation, filtering, environment, evaluator, and checkpoint differences; do not hide the gaps by changing observations or rewards and calling the run paper-faithful.
 
-## Primary references
-
-- Paper: <https://arxiv.org/abs/2610.28480>
-- Project page: <https://supermimic.github.io/>
-- Candidate implementation and its own experiment details: <https://github.com/CuboiLeo/SuperMimic-Reproduced>
-
-<!-- Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license. -->
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->

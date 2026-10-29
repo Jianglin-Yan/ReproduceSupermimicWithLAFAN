@@ -65,4 +65,4 @@ markers = ["slow: long-running tests"]
 line-length = 100
 target-version = "py312"
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

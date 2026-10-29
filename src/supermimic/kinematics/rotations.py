@@ -105,4 +105,4 @@ def projected_gravity(q_body_w: torch.Tensor) -> torch.Tensor:
     g = g.expand(*q_body_w.shape[:-1], 3)
     return quat_apply_inverse(q_body_w, g)
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

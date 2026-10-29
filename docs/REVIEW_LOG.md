@@ -86,4 +86,4 @@
 - D12 的总长度解读需要 e2 的实测校准，计划已把三种读法进配置。
 - D5 的目标帧内容、D1 的规范化、D3 的名义尺度、D14 的 EMA 系数都是论文未指明处的自选值，首个配置是否达标要靠 Phase 4 的迭代；全部可配置，EXPERIMENTS.md 记录每次变更。
 
-<!-- Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license. -->
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->

@@ -85,4 +85,4 @@ def finalize() -> None:
     if dist.is_available() and dist.is_initialized():
         dist.destroy_process_group()
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

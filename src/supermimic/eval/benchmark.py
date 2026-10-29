@@ -132,4 +132,4 @@ def summarize(results: list[ClipResult]) -> dict:
 def save_results(results: list[ClipResult], path: str | Path) -> None:
     Path(path).write_text(json.dumps({"summary": summarize(results), "clips": [asdict(r) for r in results]}, indent=1))
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

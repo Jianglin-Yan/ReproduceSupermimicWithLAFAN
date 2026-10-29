@@ -86,4 +86,4 @@ def test_world_model_overfits_replay_windows():
     finally:
         env.close()
 
-# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
+# Maintainer: Jianglin Yan | 2026-10-28

@@ -637,4 +637,4 @@ make test-fast
 - 以上 Fig. 5a 的仿真吞吐、Fig. 3a/A.1 的 10 h 均为对数坐标图读，不确定度约 ±2×，只用于量级判断，不作为验收阈值。
 - 5090 TF32 张量核密集峰值约 105 TFLOPS；H100 SXM 约 495 TFLOPS。
 
-<!-- Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license. -->
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->

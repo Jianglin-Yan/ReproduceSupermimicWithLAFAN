@@ -327,4 +327,4 @@ Table A.8 按动作组失败数：
 | U19 | 评测时回合长度：由 F.1 "plays once from its first frame" 与 §4 "over the full episode" 可推出为整条 clip；归一化分母的 off-by-one 未说明 | App. F |
 | U20 | 想象 rollout 跨 clip 末尾时目标与奖励的处理 | §3.3 |
 
-<!-- Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license. -->
+<!-- Maintainer: Jianglin Yan | 2026-10-28 -->
