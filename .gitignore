@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+/logs/
+/data/
+/runs/
+/outputs/
+/checkpoints/
+wandb/
+*.npz
+*.pt
+*.pth
+*.onnx
+*.mp4
+*.webm
+*.gif
+*.jpg
+*.png
+.pytest_cache/
+.ruff_cache/
+experiments/**/outputs/
+
+# Project maintainer: Jianglin Yan; local copy assembled 2026-10-28. See ATTRIBUTION.md for upstream authorship and license.
